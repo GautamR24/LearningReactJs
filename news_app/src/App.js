@@ -2,15 +2,23 @@
 import './App.css'
 
 import React, { Component } from 'react'
+import NavBar from './components/NavBar'
+import News from './components/News'
 
-export default class App extends Component {
-  c = "test";
+
+export class App extends Component {
   render() {
     return (
       <div>
-        <h1>Hello my first class based components {this.c}</h1>
+        <NavBar/>
+        <News/>
       </div>
     )
   }
 }
 
+export default App
+
+
+//render will convert the JSX to html and then 
+// show the html on the screen
