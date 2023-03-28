@@ -10,6 +10,7 @@ export class App extends Component {
   render() {
     return (
       <div>
+        {/* This will all the components */}
         <NavBar/>
         <News/>
       </div>

@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-
+/**
+ * This component will set the navbar functionality of the website
+ */
 export default class NavBar extends Component {
   
 
