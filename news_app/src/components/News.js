@@ -26,6 +26,9 @@ export class News extends Component {
   async componentDidMount(){
     //this runs after render always
     let url = `https://newsapi.org/v2/top-headlines?country=us&category=business&apiKey=${agentUrl}&pageSize=${this.props.pageSize}`;
+     /**
+     * setting the loading state "true", during this time the loader will be visible
+     */
     this.setState({
       loading:true
     })
@@ -42,6 +45,9 @@ export class News extends Component {
   handleNextClick=async()=>{
     console.log("next");
     let url = `https://newsapi.org/v2/top-headlines?country=us&category=business&apiKey=${agentUrl}&page=${this.state.page + 1}&pageSize=${this.props.pageSize}`;
+     /**
+     * setting the loading state "true", during this time the loader will be visible
+     */
     this.setState({
       loading:true
     })
@@ -58,6 +64,9 @@ export class News extends Component {
   handlePrevClick=async()=>{
     console.log("prev");
     let url = `https://newsapi.org/v2/top-headlines?country=us&category=business&apiKey=${agentUrl}&page=${this.state.page - 1}&pageSize=${this.props.pageSize}`;
+    /**
+     * setting the loading state "true", during this time the loader will be visible
+     */
     this.setState({
       loading:true
     })
@@ -81,6 +90,7 @@ export class News extends Component {
         <h1 className="text-center">NewsPoint top headlines</h1>
         {this.state.loading && <Spinner/>}
         <div className="row">
+          {/* this logic will not show the news until loading state's is false */}
         {!this.state.loading && this.state.article.map((element)=>{
           return <div key={element.url} className="col-md-4">
                    <NewsItem title={element.title?element.title:""} description={element.description?element.description:""} imageURL={element.urlToImage} newsURL={element.url}/>
@@ -88,6 +98,7 @@ export class News extends Component {
         })}
         </div>
         <div className="container d-flex justify-content-between my-3">
+          {/* the previous button and next button will be disabled based on the conditions */}
         <button disabled={this.state.page <=1} type="button" className="btn btn-dark" onClick={this.handlePrevClick}>&#8701; Previous</button>
         <button disabled={this.state.page + 1 > Math.ceil(this.state.totalResults/this.props.pageSize)} type="button" className="btn btn-dark" onClick={this.handleNextClick}>Next &#8702;</button>
         </div>
