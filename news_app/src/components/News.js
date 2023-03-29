@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import NewsItem from './NewsItem'
+import Spinner from './Spinner'
 const agentUrl = process.env.REACT_APP_API_NEWS_API;
 
 export class News extends Component {
@@ -25,10 +26,14 @@ export class News extends Component {
   async componentDidMount(){
     //this runs after render always
     let url = `https://newsapi.org/v2/top-headlines?country=us&category=business&apiKey=${agentUrl}&pageSize=${this.props.pageSize}`;
+    this.setState({
+      loading:true
+    })
     let data = await fetch(url);
     let parseData = await data.json();
     console.log(parseData);
     this.setState({
+      loading:false,
       article:parseData.articles,
       totalResults:parseData.totalResults
     });
@@ -37,10 +42,14 @@ export class News extends Component {
   handleNextClick=async()=>{
     console.log("next");
     let url = `https://newsapi.org/v2/top-headlines?country=us&category=business&apiKey=${agentUrl}&page=${this.state.page + 1}&pageSize=${this.props.pageSize}`;
+    this.setState({
+      loading:true
+    })
     let data = await fetch(url);
     let parseData = await data.json();
     console.log(parseData);
     this.setState({
+      loading:false,
       article:parseData.articles,
       page: this.state.page + 1
     });
@@ -49,10 +58,14 @@ export class News extends Component {
   handlePrevClick=async()=>{
     console.log("prev");
     let url = `https://newsapi.org/v2/top-headlines?country=us&category=business&apiKey=${agentUrl}&page=${this.state.page - 1}&pageSize=${this.props.pageSize}`;
+    this.setState({
+      loading:true
+    })
     let data = await fetch(url);
     let parseData = await data.json();
     console.log(parseData);
     this.setState({
+      loading:false,
       article:parseData.articles,
       page: this.state.page - 1
     });
@@ -66,8 +79,9 @@ export class News extends Component {
          */
       <div className='container my-3'>
         <h1 className="text-center">NewsPoint top headlines</h1>
+        {this.state.loading && <Spinner/>}
         <div className="row">
-        {this.state.article.map((element)=>{
+        {!this.state.loading && this.state.article.map((element)=>{
           return <div key={element.url} className="col-md-4">
                    <NewsItem title={element.title?element.title:""} description={element.description?element.description:""} imageURL={element.urlToImage} newsURL={element.url}/>
                  </div>
