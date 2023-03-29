@@ -45,6 +45,10 @@ export class News extends Component {
                  </div>
         })}
         </div>
+        <div className="container d-flex justify-content-between my-3">
+        <button type="button" className="btn btn-dark">Previous</button>
+        <button type="button" className="btn btn-dark">Next</button>
+        </div>
       </div>
     )
   }
