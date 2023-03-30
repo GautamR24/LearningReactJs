@@ -3,6 +3,7 @@ import NewsItem from './NewsItem'
 import Spinner from './Spinner'
 import PropTypes from 'prop-types'
 
+
 const agentUrl = process.env.REACT_APP_API_NEWS_API;
 
 export class News extends Component {
